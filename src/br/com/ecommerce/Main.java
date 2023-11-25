@@ -15,12 +15,11 @@ public class Main {
 
             switch (escolha) {
                 case 1:
-                    // Adicionar produto ao carrinho
                     System.out.print("Digite o nome do produto: ");
                     String nomeProduto = scanner.nextLine();
                     System.out.print("Digite o valor do produto: ");
                     double valorProduto = scanner.nextDouble();
-                    scanner.nextLine(); // Consumir a quebra de linha após o número
+                    scanner.nextLine(); 
                     Item novoProduto = new Produto(nomeProduto, valorProduto);
                     ecommerce.adicionarItemAoCarrinho(novoProduto);
                     break;

@@ -6,9 +6,11 @@ public class ECommerce implements Observer, Consumer<InformacoesCarrinho> {
 
     private CarrinhoDeCompras carrinho;
     private PagamentoProvider pagamentoProvider;
+    private AgenteLogistico agenteLogistico;
 
-    public ECommerce(PagamentoProvider pagamentoProvider) {
+    public ECommerce(PagamentoProvider pagamentoProvider, AgenteLogistico agenteLogistico) {
         this.pagamentoProvider = pagamentoProvider;
+        this.agenteLogistico = agenteLogistico;
         this.carrinho = new CarrinhoDeCompras();
         this.carrinho.addObserver(this);
     }
@@ -24,9 +26,9 @@ public class ECommerce implements Observer, Consumer<InformacoesCarrinho> {
 
     @Override
     public void accept(InformacoesCarrinho informacoes) {
-        // Lógica para tratar as informações do carrinho
         Double novoPreco = informacoes.getPrecoTotal();
         atualizarCarrinho(novoPreco);
+        agenteLogistico.atualizar();
     }
 
     private void atualizarCarrinho(Double novoPreco) {
@@ -36,9 +38,14 @@ public class ECommerce implements Observer, Consumer<InformacoesCarrinho> {
     public void processaPedido(double valor) {
         System.out.println("Iniciando pedido....");
         pagamentoProvider.processaPagamento(valor);
+        agenteLogistico.confirmarCompra();
         System.out.println("Pedido feito com sucesso.");
     }
 
+    public void cancelarPedido() {
+        agenteLogistico.cancelarCompra();
+        System.out.println("Pedido cancelado.");
+    }
     public CarrinhoDeCompras getCarrinho() {
         return carrinho;
     }
