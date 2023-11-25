@@ -5,8 +5,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
     	PagamentoProvider pagamentoProvider = PagamentoProvider.createProvider("credit_card");
-    	ECommerce ecommerce = new ECommerce(pagamentoProvider);
-        Scanner scanner = new Scanner(System.in);
+    	AgenteLogistico agenteLogistico = new AgenteLogistico();  
+    	ECommerce ecommerce = new ECommerce(pagamentoProvider, agenteLogistico);    	
+    	
+    	
+    	Scanner scanner = new Scanner(System.in);
 
         while (true) {
             exibirMenu();

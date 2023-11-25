@@ -8,6 +8,12 @@ public class ECommerce implements Observer, Consumer<InformacoesCarrinho> {
     private PagamentoProvider pagamentoProvider;
     private AgenteLogistico agenteLogistico;
 
+    public ECommerce(PagamentoProvider pagamentoProvider) {
+        this.pagamentoProvider = pagamentoProvider;
+        this.carrinho = new CarrinhoDeCompras();
+        this.carrinho.addObserver(this);
+    }
+    
     public ECommerce(PagamentoProvider pagamentoProvider, AgenteLogistico agenteLogistico) {
         this.pagamentoProvider = pagamentoProvider;
         this.agenteLogistico = agenteLogistico;
@@ -28,7 +34,7 @@ public class ECommerce implements Observer, Consumer<InformacoesCarrinho> {
     public void accept(InformacoesCarrinho informacoes) {
         Double novoPreco = informacoes.getPrecoTotal();
         atualizarCarrinho(novoPreco);
-        agenteLogistico.atualizar();
+        agenteLogistico.atualizar(); 
     }
 
     private void atualizarCarrinho(Double novoPreco) {
